@@ -9,6 +9,6 @@
     "qrcode": "^1.5.4"
   },
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js"
   }
 }
