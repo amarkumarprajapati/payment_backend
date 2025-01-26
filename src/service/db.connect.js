@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 
 const mongodb = () => {
+  let url = "mongodb+srv://amardatabase:amardatabase@cluster0.gjuunff.mongodb.net/resume"
   return mongoose
     .connect(
-      "mongodb+srv://amardatabase:amardatabase@cluster0.gjuunff.mongodb.net/resume"
+     url
     )
     .then(() => {
       console.log("connected");
