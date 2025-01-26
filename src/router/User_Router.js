@@ -4,7 +4,7 @@ let jwt = require('jsonwebtoken')
 const usercontroller = require('../Controller/User_Controller')
 let routers = express.Router();
 
-routers.get("/login", usercontroller.login);
-routers.get("/register", usercontroller.register);
+routers.post("/login", usercontroller.login);
+routers.post("/register", usercontroller.register);
 
 module.exports = routers
