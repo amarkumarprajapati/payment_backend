@@ -7,16 +7,13 @@ const user = {};
 user.login = async (req, res) => {
   try {
     const { username, password } = req.body;
-
     const existingUser = await UserSchema.findOne({ username });
     if (!existingUser) {
       return apiResponse.ErrorResponse(res, "User not found");
     }
-
     if (existingUser.password !== password) {
       return apiResponse.ErrorResponse(res, "Invalid credentials");
     }
-
     return apiResponse.successResponse(res, "Login successful");
   } catch (err) {
     console.error("Error in login:", err);
@@ -26,9 +23,19 @@ user.login = async (req, res) => {
 
 user.register = async (req, res) => {
   try {
-    const { firstname, lastname, phonenumber, email, username, password } =
-      req.body;
-
+    const { firstname, lastname, phonenumber, email, username, password } = req.body;
+    const existingPhone = await UserSchema.findOne({ phone: phonenumber });
+    if (existingPhone) {
+      return apiResponse.ErrorResponse(res, "This phone number is already in use");
+    }
+    const existingEmail = await UserSchema.findOne({ email });
+    if (existingEmail) {
+      return apiResponse.ErrorResponse(res, "This email is already in use");
+    }
+    const existingUser = await UserSchema.findOne({ username });
+    if (existingUser) {
+      return apiResponse.ErrorResponse(res, "This username is already in use");
+    }
     const newUser = new UserSchema({
       firstname,
       lastname,
@@ -37,7 +44,6 @@ user.register = async (req, res) => {
       username,
       password,
     });
-
     await newUser.save();
     return apiResponse.successResponse(res, "User registered successfully");
   } catch (err) {
