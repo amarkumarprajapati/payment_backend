@@ -6,8 +6,8 @@ const user = {};
 
 user.login = async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const existingUser = await UserSchema.findOne({ username });
+    const { email, password } = req.body;
+    const existingUser = await UserSchema.findOne({ email });
     if (!existingUser) {
       return apiResponse.ErrorResponse(res, "User not found");
     }
