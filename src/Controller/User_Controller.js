@@ -25,7 +25,7 @@ user.login = async (req, res) => {
     }
 };
 
-user. = async (req, res) => {
+user.register = async (req, res) => {
     try {
         const { firstname, lastname, phonenumber, email, password } = req.body;
         const existingUser = await UserSchema.findOne({ email });
