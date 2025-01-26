@@ -23,25 +23,17 @@ user.login = async (req, res) => {
 
 user.register = async (req, res) => {
   try {
-    const { firstname, lastname, phonenumber, email, username, password } = req.body;
-    const existingPhone = await UserSchema.findOne({ phone: phonenumber });
-    if (existingPhone) {
-      return apiResponse.ErrorResponse(res, "This phone number is already in use");
-    }
+    const { firstname, lastname, phonenumber, email, password } = req.body;
+    
     const existingEmail = await UserSchema.findOne({ email });
     if (existingEmail) {
       return apiResponse.ErrorResponse(res, "This email is already in use");
-    }
-    const existingUser = await UserSchema.findOne({ username });
-    if (existingUser) {
-      return apiResponse.ErrorResponse(res, "This username is already in use");
     }
     const newUser = new UserSchema({
       firstname,
       lastname,
       phone: phonenumber,
       email,
-      username,
       password,
     });
     await newUser.save();
