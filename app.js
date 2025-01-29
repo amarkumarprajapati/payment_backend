@@ -16,7 +16,6 @@ app.get("/", async (req, res) => {
 mongodbconnect();
 
 app.use(cors());
-// app.use(loggermiddleware)
 app.use("/auth", letdasrouter);
 
 app.listen(port, () => {
